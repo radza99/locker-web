@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ - Safe Locker</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="container">
+        <!-- เปลี่ยนเป็นโลโก้จริงของคุณได้ -->
+       
+        <h2>Safe Locker🔒</h2>
+        <p class="subtitle" >เข้าสู่ระบบเพื่อใช้งานตู้ฝากของ</p>
+
+        <form action="login_process.php" method="post">
+            <label for="phone">เบอร์โทรศัพท์</label>
+            <input type="text" id="phone" name="phone" placeholder="08xxxxxxxx" maxlength="10" required>
+
+            <label for="passcode">รหัสผ่าน (4 หลัก)</label>
+            <input type="password" id="passcode" name="passcode" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]{4}" required>
+
+            <button type="submit">เข้าสู่ระบบ</button>
+        </form>
+    </div>
+
+    <script>
+        // พิมพ์ได้เฉพาะตัวเลขเท่านั้น
+        document.getElementById('phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        document.getElementById('passcode').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
+    
+       <!-- ส่วนแสดงวันที่และเวลา -->
+    <div id="datetime"></div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            
+            // ตัวเลือกสำหรับวันที่ภาษาไทย
+            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateThai = now.toLocaleDateString('th-TH', optionsDate);
+            
+            // เวลา
+            const time = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            document.getElementById('datetime').innerHTML = `${dateThai}<br>${time}`;
+        }
+
+        // อัปเดตทันทีและทุก 1 วินาที
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+ 
+ </script>
+ 
+</body>
+
+</html>
